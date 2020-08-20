@@ -32,8 +32,20 @@ memory map へようこそ！<br>
 <hr width="500">
 <h2>実際に使う</h2>
 <ul>
-  <li>写真を登録する
+  <li><a href="picture.php">写真を確認する</a>
 </ul>
+
+<button id="check">写真を確認する</button>
+
+<script>
+$(function() {
+// 再生
+$('#check').click(function() {
+  location.href = "./picture.php";
+});
+});
+
+</script>
 
 </section>
 

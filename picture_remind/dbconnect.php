@@ -1,6 +1,6 @@
 <?php
 try{
-  $db = new PDO('mysql:dbname=picture_data;host=127.0.0.1:charset=utf8' , 'root' , '');
+  $db = new PDO('mysql:host=localhost;dbname=picture_data;charset=utf8' , 'miki' , '19960807Sm');
 }catch (PDOException $e) {
   echo 'DB接続エラー: '. $e->getMessage();
 }

@@ -41,6 +41,13 @@
   </form>
   <div id="result"></div>
 </div>
+
+<h1>写真を登録する</h1>
+
+<form action="aprication_v1.php" method="post">
+	<input type="submit"><br>
+	<input type="submit" value="呼び出し">
+</form>
 </body>
 </section>
 
