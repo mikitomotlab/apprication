@@ -25,6 +25,12 @@ function startVideo() {
             });
         })
         .then(function (mediaStream) {
+            /*const video = document.getElementById('myVideo');
+            mediaStream = await getDeviceStream({
+              video: { width: 640, height: 320},
+              audio: false
+            });
+            video.srcObject = mediaStream;*/
             console.log('取得したMediaStream->', mediaStream);
             videoStreamInUse = mediaStream;
             document.querySelector('video').src = window.URL.createObjectURL(mediaStream);
@@ -44,6 +50,15 @@ function stopVideo() {
     } else {
         console.log('停止できたよ！', videoStreamInUse);
     }
+
+  /*  const video = document.getElementById('myVideo');
+    const tracks = stream.getTracks();
+
+    tracks.forEach((track) => {
+      track.stop();
+    });
+
+    video.srcObject = null;*/
 }
 
 function snapshot() {
@@ -52,6 +67,9 @@ function snapshot() {
     var videoElement = document.querySelector('video');
     var canvasElement = document.querySelector('canvas');
     var context = canvasElement.getContext('2d');
+    var canvas = document.getElementById('image');
+
+    
 
     context.drawImage(videoElement, 0, 0, videoElement.width, videoElement.height);
     document.querySelector('img').src = canvasElement.toDataURL('image/webp');
