@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+<div id="sample"></div>
+<script src="sample.js"></script>
+
+<body>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <button id="play">再生</button>
+  <button id="pause">一時停止</button>
+  <button id="prev">1分前へ</button>
+  <button id="next">1分先へ</button>
+  <button id="volup">音量アップ</button>
+  <button id="voldown">音量ダウン</button>
+  <button id="mute">ミュート</button>
+
+  <script>
+  $(function() {
+  // 再生
+   $('#play').click(function() {
+     if(playerReady) {
+       ytPlayer.playVideo();
+     }
+   });
+ // 一時停止
+ $('#pause').click(function() {
+   if(playerReady) {
+        ytPlayer.pauseVideo();
+      }
+  });
+ // 1分前へ
+ $('#prev').click(function() {
+     // 現在の再生時間取得
+     if(playerReady) {
+        var currentTime = ytPlayer.getCurrentTime();
+        // シークバーの移動
+       ytPlayer.seekTo(currentTime - 60);
+     }
+  });
+ // 1分先へ
+ $('#next').click(function() {
+   if(playerReady) {
+     // 現在の再生時間取得
+        var currentTime = ytPlayer.getCurrentTime();
+        // シークバーの移動
+       ytPlayer.seekTo(currentTime + 60);
+     }
+  });
+ // 音量アップ(+10)
+   $('#volup').click(function() {
+        // 現在の音量取得
+      var currentVol = ytPlayer.getVolume();
+      ytPlayer.setVolume(currentVol + 10);
+    });
+ // 音量ダウン(-10)
+   $('#voldown').click(function() {
+      // 現在の音量取得
+      if(playerReady) {
+        var currentVol = ytPlayer.getVolume();
+        ytPlayer.setVolume(currentVol - 10);
+      }
+    });
+ // ミュート
+ $('#mute').click(function() {
+   if(playerReady) {
+     // ミュートされているかどうか
+        if(ytPlayer.isMuted()) {
+            // ミュートの解除
+          ytPlayer.unMute();
+      } else {
+            // ミュート
+         ytPlayer.mute();
+        }
+      }
+     });
+  });
+  </script>
+</body>
+
+</html>

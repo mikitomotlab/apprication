@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<pre id="hoge"></pre><!-- /#hoge -->
+
+<script>
+  $(function(){
+	  $.ajax({
+    type: 'get',//リクエスト方法
+    url: 'https://www.googleapis.com/youtube/v3/playlistItems',//リクエストURL
+    dataType: 'json',//取得するデータの形式
+    data: {
+      //取得したい情報をセット(必須)※複数の場合はカンマ区切り
+      part: 'id,snippet,contentDetails,status',
+      //プレイリストIDをセット
+      playlistId: 'lzAyrgSqeeE',
+      //最大取得件数をセット(デフォルト値は5)
+      maxResults: 3,
+      //使用するAPIキー
+      key: 'AIzaSyDY1EvhjsqEEQt7eWMyzCOPx0bmbOpVPeg',
+      //リクエスト内容に応じたパラメータ
+	    hoge: 'piyo',
+		  }
+	  }).done(function() {
+		  // 成功時の動作を記述
+		  var jsonData = JSON.stringify(response, null , "\t");
+		  $('#hoge').text(jsonData);
+	  }).fail(function() {
+		  // 失敗時の動作を記述
+		  $('#hoge').text('失敗しました');
+	  });
+  });
+</script>
+
+
+</html>
