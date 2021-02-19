@@ -41,7 +41,7 @@ memory map へようこそ！<br>
 $(function() {
 // 再生
 $('#check').click(function() {
-  location.href = "./picture.php";
+  location.href = "./picture2.php";
 });
 });
 

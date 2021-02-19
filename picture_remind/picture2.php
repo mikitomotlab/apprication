@@ -33,7 +33,13 @@
 <pre>Make and model: <span id="makeAndModel"></span></pre>
 <br/>
 -->
+<p>keywordを入力してください!</p>
+<form>
+  <input type="text" id="keyword" name="keyword" size="20" />
+  <input type="submit" id="btn" name="submit" value="送信" />
+</form>
 
+<p>画像を選択してください!</p>
 <body ondrop="onDrop(event);" ondragover="onDragOver(event);">
 <div style="margin-left:5px;">
 <h1>Exifの確認と削除</h1>
@@ -52,11 +58,11 @@
 <div id="logitude"></div>
 
 <h1>写真を登録する</h1>
-<form>
+<!-- <form>
   <input type="text" id="keyword" name="keyword" size="20" />
   <input type="submit" id="btn" name="submit" value="送信" />
 </form>
-</body>
+</body> -->
 <!-- </section> -->
 
 
