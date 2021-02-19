@@ -87,16 +87,6 @@ function register(event){
 
   };
 
-    fetch('http://localhost/phpmyadmin/sql.php?server=1&db=picture_data&table=data&pos=0', data)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(json);
-      })
-      .catch(e => {
-        console.error(e);
-      });
   }
 
 
@@ -178,6 +168,15 @@ function onAddFile(event) {
         }else{
           html += "<p>GPS情報はありません。</p>";
         }
+        console.log(dms);
+        // $.ajax({
+        //   type: 'POST',
+        //   url: 'aprication_v1.php',
+        //   data: {latitude:ExifMaster.Analyst.IFD.gps[0].data,logitude:ExifMaster.Analyst.IFD.gps[1].data,time:ExifMaster.Analyst.IFD.camera[4].data},
+        //   success: function(data) {
+        //       alert(data);
+        //   }
+        // });
 
         // -----------------
         //  カメラ
@@ -324,9 +323,55 @@ function onAddFile(event) {
       image.src = base64.result;
     }
 
+    console.log('send data');
+    alert("send data");
     base64.readAsDataURL(new Blob([reader.result],{type:"image/jpeg"}));
     document.getElementById("result").innerHTML = html;
-  };
+
+
+
+    //結果を送信する
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          result.textContent = xhr.responseText;
+        } else {
+          result.textContent = 'サーバーエラーが発生しました。';
+        }
+      } else {
+        result.textContent = '通信中...';
+      }
+    };
+    var lati = ExifMaster.Analyst.IFD.gps[0].data; 
+    var logi = ExifMaster.Analyst.IFD.gps[1].data;
+    //数字以外の文字を空文字へ置き換える 
+    lati = lati.replace('.','');
+    lati = lati.replace('北緯','');
+    lati = lati.replace('度','.');
+    lati = lati.replace('分','');
+    lati = lati.replace('秒','');
+    logi = logi.replace('.','');
+    logi = logi.replace('東経','');
+    logi = logi.replace('度','.');
+    logi = logi.replace('分','');
+    logi = logi.replace('秒','');
+    // lati = parseFloat(lati);
+    // logi = parseFloat(logi);
+
+    //latiとlogiをまとめて送信
+    var pos = lati + ',' + logi
+    xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    // xhr.send('latitude=' + encodeURIComponent(ExifMaster.Analyst.IFD.gps[0].data));
+    // xhr.send('latitude=' + encodeURIComponent(lati) , 'logitude=' + encodeURIComponent(logi));
+
+    xhr.send('pos=' + encodeURIComponent(pos));
+
+    // xhr.send('logitude=' + encodeURIComponent(logi));
+    // alert(ExifMaster.Analyst.IFD.gps[0].data);
+    // console.log(ExifMaster.Analyst.IFD.gps[0].data);
+    console.log(lati);
 
   if (files[0]){
     filename = files[0].name;
@@ -334,10 +379,3 @@ function onAddFile(event) {
     document.getElementById("inputfile").value = "";
   }
 }
-/*
-$pic_data = array(
-  'latitude' =>
-  'longitude' =>
-  'time' =>
-);
-*/

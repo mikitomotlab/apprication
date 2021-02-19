@@ -87,16 +87,6 @@ function register(event){
 
   };
 
-    fetch('http://localhost/phpmyadmin/sql.php?server=1&db=picture_data&table=data&pos=0', data)
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(json);
-      })
-      .catch(e => {
-        console.error(e);
-      });
   }
 
 
@@ -122,6 +112,7 @@ function onAddFile(event) {
       ExifMaster = new TExifMaster(new Uint8Array(reader.result));
 
       // プロパティ確認用
+      alert("check");
       console.log(ExifMaster.Analyst);
 
       var html = "<p>"+ filename +" ("   + ExifMaster.Analyst.Width +
@@ -178,6 +169,16 @@ function onAddFile(event) {
         }else{
           html += "<p>GPS情報はありません。</p>";
         }
+        console.log("check");
+        $.ajax({
+          type: 'POST',
+          url: 'aprication_v1.php',
+          data: "result=latitude&name2=logitude&name3=time",
+          success: function(data) {
+              alert(data);
+          }
+        });
+        alert("send data");
 
         // -----------------
         //  カメラ
@@ -324,8 +325,23 @@ function onAddFile(event) {
       image.src = base64.result;
     }
 
+    console.log('send data');
+    alert("send data");
     base64.readAsDataURL(new Blob([reader.result],{type:"image/jpeg"}));
     document.getElementById("result").innerHTML = html;
+
+    console.log('send data');
+    alert("send data");
+
+    $.ajax({
+      type: 'POST',
+      url: 'aprication_v1.php',
+      data: "result=latitude&name2=logitude&name3=time",
+      success: function(data) {
+          alert(data);
+      }
+    });
+    alert("send data");
   };
 
   if (files[0]){
@@ -334,6 +350,31 @@ function onAddFile(event) {
     document.getElementById("inputfile").value = "";
   }
 }
+//picture.phpから呼び出す関数
+// function give_result() {
+//   // document.getElementById('sendresult').onclick = function(){
+//     // alert("into function")
+//     // post();
+//   // }
+//   alert("into function")
+//   // post();
+//   xhr = new XMLHttpRequest();
+//   // 計算ボタンを押した際の動作
+//   // function post() {
+//   xhr.open('POST', 'aprication_v1.php', true);
+//   alert("into function post")
+//   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+//   // フォームに入力した値をリクエストとして設定
+//   var request = getElementById("result").value;
+//   // var request = getElementById("result").value;
+//   if(request == null){
+//     alert("変数に値が格納されていません")
+//   }
+//   // alert(request)
+//   xhr.send(request);
+// }
+
+// }
 /*
 $pic_data = array(
   'latitude' =>

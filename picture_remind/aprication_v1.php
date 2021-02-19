@@ -1,4 +1,4 @@
-<?php require('C:\xampp\htdocs\dbconnect.php'): ?>
+<?php require('dbconnect.php'); ?>
 
 <?php
 	print("ようこそ！このホームページへ！");
@@ -6,17 +6,27 @@
 
 <?php
 
-//$con = mysql_connect('localhost', 'miki', '19960807Sm', 'picture_data');
+print 'mysql 関数で接続に成功しました。';
 
-print 'mysql 関数で接続に成功しました。'
+//main2.jsから値を受け取る
+$pos = $_POST['pos'];
 
-$params = json_decode(file_get_contents('php://input'), true);
-$latitude = $params["latitude"];
-$logitude = $params["logitude"];
-$time = $params["time"];
+// header('Content-type:application/json; charset=utf8');
+// $latitude = json_encode($latitude);
+// $logitude = json_encode($logitude);
 
-$statement = $db->prepare('INSERT INTO data SET latitude=> $latitude , longitude=> $logitude , time=> $time  ');
-$statement->execute();
+print 'aaa';
+print $pos;//latitude, logitude どちらも受け取る
+$position = explode(",", $pos); //,で文字を区切る
+$latitude = $position[0];
+$logitude = $position[1];
+
+//DBへ登録する
+// $pos = GeomFromText('POINT($latitude $logitude)');
+$statesql = 'INSERT INTO data (latitude, logitude, pictured, keyword) VALUES (:latitude, :logitude, now(), :keyword)';
+$state = $db->prepare($statesql);
+$params = array(':latitude' => $latitude, ':logitude' => $logitude, ':keyword' => 'aaa');
+$state ->execute($params);
 echo 'メッセージが登録されました';
 
 

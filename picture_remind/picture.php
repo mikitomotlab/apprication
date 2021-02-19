@@ -5,7 +5,13 @@
   <title>picuture</title>
   <style></style>
   <link  rel="stylesheet" type="text/css" href="style.css">
-  <script src="main.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+  <script src="main3.js" defer></script>
+  <!-- <script src="hello_ajax.js" defer></script> -->
+  <!-- <script src="try.js" defer></script> -->
   <script src="EXIF.js" ></script>
   <script src="effect.js"></script>
 </head>
@@ -42,12 +48,51 @@
   <div id="result"></div>
 </div>
 
-<h1>写真を登録する</h1>
-
-<form action="aprication_v1.php" method="post">
-	<input type="submit"><br>
-	<input type="submit" value="呼び出し">
+<div id="latitude"></div>
+<div id="logitude"></div>
+<form method="POST" action="aprication_v3.php">
+  <input type="text" name="keyword" size="20" />
+  <input type="submit" name="submit" value="送信" />
 </form>
+
+<h1>写真を登録する</h1>
+<!-- <script type="text/javascript">
+
+  function give_result() {
+    alert("into function");
+
+    var request = document.querySelector('#result');
+    alert(request);
+    // console.log(request.outerHTML);
+    // post();
+    xhr = new XMLHttpRequest();
+    // 計算ボタンを押した際の動作
+    // function post() {
+    alert("into XMLHttp");
+    xhr.open('POST', 'aprication_v1.php', true);
+    alert("into function post");
+    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+    // フォームに入力した値をリクエストとして設定
+    // var request = html;
+    // var request = getElementById("result").value;
+    if(request == null){
+      alert("変数に値が格納されていません");
+    }
+    // alert(request)
+    alert("request");
+  }
+
+</script> -->
+
+<button id="btn" type="button" name="submit" value="送信">送信ボタン</button>
+
+<!-- <form action="aprication_v1.php" method="post" name="resultsend"> -->
+  <!-- <button type="submit" name="result" value=<div id="result"></div>>送信する</button> -->
+  <!-- <button type="submit" name="result" onclick="give_result()">送信する</button> -->
+  <!-- <input type="hidden" name="result" value=result> -->
+	<!-- <input type="submit"><br> -->
+	<!-- <input type="submit" value="呼び出し"> -->
+<!-- </form> -->
 </body>
 </section>
 
