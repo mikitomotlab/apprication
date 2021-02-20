@@ -382,13 +382,16 @@ function onAddFile(event) {
     // console.log(ExifMaster.Analyst.IFD.gps[2].data);
     console.log(ExifMaster.Analyst.IFD.main[6].data);
     time = ExifMaster.Analyst.IFD.main[6].data;
+    // var queryimg =document.querySelector('#inputfile').files[0];
+    // imgname = queryimg.name;
+    console.log(filename);
     //条件によって処理を待機させる 
     var ti = setInterval(function(){
       keyword = document.getElementById("keyword").value;
       if(keyword != ""){
         clearInterval(ti);
         console.log(keyword);
-        var pos = lati + ',' + logi + ',' + keyword + ',' + time;
+        var pos = lati + ',' + logi + ',' + keyword + ',' + time + ',' + filename;
         xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
         xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
         xhr.send('pos=' + encodeURIComponent(pos));

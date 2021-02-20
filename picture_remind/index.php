@@ -32,12 +32,13 @@ memory map へようこそ！<br>
 <hr width="500">
 <h2>実際に使う</h2>
 <ul>
-  <li><a href="picture.php">写真を確認する</a>
+  <li><a href="picture2.php">写真を追加する</a>
 </ul>
 
-<button id="check">写真を確認する</button>
+<!-- <button id="check">写真を確認する</button> -->
+<a href="display.php">写真を確認する</a>
 
-<script>
+<!-- <script>
 $(function() {
 // 再生
 $('#check').click(function() {
@@ -45,7 +46,7 @@ $('#check').click(function() {
 });
 });
 
-</script>
+</script> -->
 
 </section>
 
