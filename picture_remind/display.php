@@ -8,15 +8,14 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="style.css">
 
-<title>よくわかるPHPの教科書</title>
+<title>all data</title>
 </head>
 <body>
 <header>
-<h1 class="font-weight-normal">よくわかるPHPの教科書</h1>
+<h1 class="font-weight-normal">お店一覧</h1>
 </header>
 
 <main>
-<h2>データの一覧画面を作る</h2>
 <?php
 // try {
 //     $db = new PDO('mysql:dbname=mydb;host=127.0.0.1;charset=utf8', 'root', '');
@@ -34,6 +33,7 @@ $memories = $db->query('SELECT * FROM data ORDER BY id DESC');
 <time><?php print($memory['pictured']); ?></time>
 <hr>
 <?php endwhile; ?>
+
 </article>
 </main>
 </body>

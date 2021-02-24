@@ -13,16 +13,16 @@
 <!-- Bootstrap CSS -->
 <!-- <link rel="stylesheet" href="css/style.css"> -->
 
-<title>よくわかるPHPの教科書</title>
+<!-- <title>よくわかるPHPの教科書</title>
 </head>
 <body>
 <header>
-<h1 class="font-weight-normal">よくわかるPHPの教科書</h1>    
+<h1 class="font-weight-normal"><?php print($memory['imgname']); ?></h1>    
 </header>
 
 <main>
-<h2>Practice</h2>
-<pre>
+<h2>Practice</h2> -->
+<!-- <pre> -->
 <?php
 require('dbconnect.php'); 
 // 移動前のページから'id'を受け取る
@@ -60,6 +60,24 @@ $memory = $memories->fetch();
     }
   </script>
 
+<?php ?>
+
+<header>
+<h1 class="font-weight-normal"><?php 
+$imgname = $memory['imgname'];
+$stringc = strlen($imgname);
+// print($stringc);
+$stringcn = $stringc - 4;
+// print($stringcn);
+$store = substr_replace($imgname, "", $stringcn,4);
+print($store); 
+?></h1>    
+</header>
+
+<main>
+<h2>Price : <?php print($memory['price']); ?> 円（一人当たり）</h2>
+<pre>
+<h2> 説明 :<br> <?php print($memory['description']); ?></h2>
 <article>
 <img src="image/<?php echo $memory['imgname'];?>" width="400" height="300" alt="image">
 <?php print($memory['imgname']); ?>

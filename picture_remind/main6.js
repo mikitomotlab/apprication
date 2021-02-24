@@ -1,21 +1,3 @@
-/*const imgA = document.querySelector('#myImageA');
-imgA.onload = () => {
-  imgA.classList.remove('loading');
-};
-imgA.src = 'img/';
-imgA.classList.add('loading')
-
-window.onload=getExif;
-
-function getExif(){
-  var img1 = document.getElementById("img1")
-  EXIF.getData(img1, function(){
-    var make = EXIF.getTag(this, "Make");
-    var model = EXIF.getTag(this, "Model");
-    var makeAndModel = document.getElementById("makeAndmodel");
-    makeAndModel.innerHTML = '${make} ${model}';
-  })
-}*/
 var ExifMaster;
 
 var filename;
@@ -69,29 +51,6 @@ function run() {
 
   return false;
 }
-
-// function register(event){
-//   const obj = {
-//     "latitude": ExifMaster.Analyst.IFD.gps[0].data,
-//     "logitude": ExifMaster.Analyst.IFD.gps[1].data,
-//     "time" : ExifMaster.Analyst.IFD.camera[4].data,
-//   };
-//   const data = {
-//     method: 'POST',
-//     headers:{
-//       'Content-Type': 'application/json'
-//     },
-//     /*body: JSON.stringify(
-//         "latitude": ExifMaster.Analyst.IFD.gps[0].data,
-//         "logitude": ExifMaster.Analyst.IFD.gps[1].data,
-//         "time" : ExifMaster.Analyst.IFD.camera[4].data,
-//       )*/
-//     body: JSON.stringify(obj)
-
-//   };
-
-//   }
-
 
 
 function onAddFile(event) {
@@ -172,14 +131,6 @@ function onAddFile(event) {
           html += "<p>GPS情報はありません。</p>";
         }
         console.log("check");
-        // $.ajax({
-        //   type: 'POST',
-        //   url: 'aprication_v1.php',
-        //   data: {latitude:ExifMaster.Analyst.IFD.gps[0].data,logitude:ExifMaster.Analyst.IFD.gps[1].data,time:ExifMaster.Analyst.IFD.camera[4].data},
-        //   success: function(data) {
-        //       alert(data);
-        //   }
-        // });
 
         // -----------------
         //  カメラ
@@ -350,20 +301,6 @@ function onAddFile(event) {
     var lati = ExifMaster.Analyst.IFD.gps[0].data; 
     var logi = ExifMaster.Analyst.IFD.gps[1].data;
 
-
-    // var ti = setInterval(function(){
-    //   // console.log(ti);
-    //   keyword = document.getElementById("keyword").value;
-    //   if(keyword != ""){
-    //     clearInterval(ti);
-    //     console.log(keyword);
-    //   }
-    // }, 500);
-
-
-    // keyword = document.getElementById("keyword");
-    // console.log(keyword);
-    // alert(keyword)
     //数字以外の文字を空文字へ置き換える 
     lati = lati.replace('.','');
     lati = lati.replace('北緯','');
@@ -375,59 +312,37 @@ function onAddFile(event) {
     logi = logi.replace('度','.');
     logi = logi.replace('分','');
     logi = logi.replace('秒','');
-    // lati = parseFloat(lati);
-    // logi = parseFloat(logi);
 
     //latiとlogiをまとめて送信
-    // console.log(ExifMaster.Analyst.IFD.gps[2].data);
     console.log(ExifMaster.Analyst.IFD.main[6].data);
     time = ExifMaster.Analyst.IFD.main[6].data;
-    // var queryimg =document.querySelector('#inputfile').files[0];
-    // imgname = queryimg.name;
     console.log(filename);
     //条件によって処理を待機させる 
     var ti = setInterval(function(){
       keyword = document.getElementById("keyword").value;
-      if(keyword != ""){
-        clearInterval(ti);
-        console.log(keyword);
-        var pos = lati + ',' + logi + ',' + filename + ',' + time + ',' + keyword;
-        xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
-        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        xhr.send('pos=' + encodeURIComponent(pos));
+      price = document.getElementById("price").value;
+      description = document.getElementById("description").value;
+      console.log(description);
+      if(keyword != "" && price != ""){
+        if(description != ""){
+          clearInterval(ti);
+          console.log(keyword);
+          console.log(price);
+          console.log(description);
+          var pos = lati + ',' + logi + ',' + filename + ',' + time + ',' + price + ',' + description + ',' + keyword;
+          xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
+          xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+          xhr.send('pos=' + encodeURIComponent(pos));
+        }
+          // clearInterval(ti);
+          // console.log(keyword);
+          // console.log(price);
+          // var pos = lati + ',' + logi + ',' + filename + ',' + time + ',' + price + ',' + keyword;
+          // xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
+          // xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+          // xhr.send('pos=' + encodeURIComponent(pos));
       }
     }, 500);
-    // var pos = lati + ',' + logi
-    // xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
-    // xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    // // xhr.send('latitude=' + encodeURIComponent(ExifMaster.Analyst.IFD.gps[0].data));
-    // // xhr.send('latitude=' + encodeURIComponent(lati) , 'logitude=' + encodeURIComponent(logi));
-
-    // xhr.send('pos=' + encodeURIComponent(pos));
-
-    // // xhr.send('logitude=' + encodeURIComponent(logi));
-    // // alert(ExifMaster.Analyst.IFD.gps[0].data);
-    // // console.log(ExifMaster.Analyst.IFD.gps[0].data);
-    // console.log(lati);
-
-    // $.ajax({
-    //   type: 'POST',
-    //   url: 'aprication_v1.php',
-    //   data: "result=latitude&name2=logitude&name3=time",
-    //   success: function(data) {
-    //       alert(data);
-    //   }
-    // });
-    // alert("send data");
-
-    // $.ajax({
-    //     type: 'POST',
-    //     url: 'aprication_v1.php',
-    //     data: {latitude:ExifMaster.Analyst.IFD.gps[0].data,logitude:ExifMaster.Analyst.IFD.gps[1].data,time:ExifMaster.Analyst.IFD.camera[4].data},
-    //     success: function(data) {
-    //         alert(data);
-    //     }
-    // });
   };
 
   if (files[0]){
@@ -436,35 +351,3 @@ function onAddFile(event) {
     document.getElementById("inputfile").value = "";
   }
 }
-//picture.phpから呼び出す関数
-// function give_result() {
-//   // document.getElementById('sendresult').onclick = function(){
-//     // alert("into function")
-//     // post();
-//   // }
-//   alert("into function")
-//   // post();
-//   xhr = new XMLHttpRequest();
-//   // 計算ボタンを押した際の動作
-//   // function post() {
-//   xhr.open('POST', 'aprication_v1.php', true);
-//   alert("into function post")
-//   xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-//   // フォームに入力した値をリクエストとして設定
-//   var request = getElementById("result").value;
-//   // var request = getElementById("result").value;
-//   if(request == null){
-//     alert("変数に値が格納されていません")
-//   }
-//   // alert(request)
-//   xhr.send(request);
-// }
-
-// }
-/*
-$pic_data = array(
-  'latitude' =>
-  'longitude' =>
-  'time' =>
-);
-*/
