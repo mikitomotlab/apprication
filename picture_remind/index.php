@@ -36,7 +36,7 @@ memory map へようこそ！<br>
 </ul>
 
 <!-- <button id="check">写真を確認する</button> -->
-<a href="display2.php">写真を確認する</a>
+<a href="display3.php">写真を確認する</a>
 
 <!-- <script>
 $(function() {
