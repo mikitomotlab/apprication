@@ -52,6 +52,50 @@ function run() {
   return false;
 }
 
+function latipos(lati){
+
+  lati = lati.replace('北緯','');
+  lati = lati.replace('度',' ');
+  lati = lati.replace('分',' ');
+  lati = lati.replace('秒',' ');
+  var latia = lati.split(' ');
+  console.log(latia);
+  console.log(latia[1]);
+  latia[1] = latia[1] / 60;
+  latia[2] = latia[2] /3600;
+  latic = Number(latia[0]);
+  latid = Number(latia[1]);
+  latib = Number(latia[2]);
+  var latitude = latic + latid + latib;
+  console.log(latic);
+  console.log(latid);
+  console.log(latib);
+  console.log(latitude);
+  return latitude;
+}
+
+
+function logipos(logi){
+  logi = logi.replace('東経','');
+  logi = logi.replace('度',' ');
+  logi = logi.replace('分',' ');
+  logi = logi.replace('秒',' ');
+  var logia = logi.split(' ');
+  console.log(logia);
+  console.log(logia[1]);
+  logia[1] = logia[1] / 60;
+  logia[2] = logia[2] /3600;
+  logic = Number(logia[0]);
+  logid = Number(logia[1]);
+  logib = Number(logia[2]);
+  var logitude = logic + logid + logib;
+  console.log(logic);
+  console.log(logid);
+  console.log(logib);
+  console.log(logitude);
+  return logitude;
+}
+
 function geom(lati, logi){
     var currentLocation = new google.maps.LatLng(lati, logi);
     var geocoder = new google.maps.Geocoder();
@@ -130,9 +174,11 @@ function onAddFile(event) {
           if(ExifMaster.Analyst.DMS){
            // Googleマップ用のURLの生成
            var dms = ExifMaster.Analyst.DMS.replace('"','%22');
+           console.log(dms);
            dms = dms.replace('"','%22');
            dms = dms.replace('°','%C2%B0');
            dms = dms.replace('°','%C2%B0');
+           console.log(dms);
            html +='<p><a href="https://www.google.co.jp/maps/place/' + dms  + '">Googleマップでこの座標の位置を確認する。</a></p>';
           }else{
             html += "<p></p>";
@@ -298,12 +344,12 @@ function onAddFile(event) {
     }
 
     console.log('send data');
-    alert("send data");
+    // alert("send data");
     base64.readAsDataURL(new Blob([reader.result],{type:"image/jpeg"}));
     document.getElementById("result").innerHTML = html;
 
     console.log('send data');
-    alert("send data");
+    // alert("send data");
 
         //結果を送信する
     var xhr = new XMLHttpRequest();
@@ -320,20 +366,15 @@ function onAddFile(event) {
     };
     var lati = ExifMaster.Analyst.IFD.gps[0].data; 
     var logi = ExifMaster.Analyst.IFD.gps[1].data;
+    console.log(lati);
+    console.log(logi);
+    // var latia = lati.split()
+    // var logia = lati.split()
 
-    //数字以外の文字を空文字へ置き換える 
-    lati = lati.replace('.','');
-    lati = lati.replace('北緯','');
-    lati = lati.replace('度','.');
-    lati = lati.replace('分','');
-    lati = lati.replace('秒','');
-    logi = logi.replace('.','');
-    logi = logi.replace('東経','');
-    logi = logi.replace('度','.');
-    logi = logi.replace('分','');
-    logi = logi.replace('秒','');
+    var latitude = latipos(lati);
+    var logitude = logipos(logi);
 
-    var results = geom(lati,logi);
+    var results = geom(latitude,logitude);
     // var results = document.getElementById("address").textContent;
     console.log(results);
 
@@ -356,7 +397,7 @@ function onAddFile(event) {
           console.log(price);
           console.log(description);
           console.log(address);
-          var pos = lati + ',' + logi + ',' + filename + ',' + time + ',' + price + ',' + description + ',' + address + ',' + keyword;
+          var pos = latitude + ',' + logitude + ',' + filename + ',' + time + ',' + price + ',' + description + ',' + address + ',' + keyword;
           xhr.open('POST', 'http://localhost/picture_remind/aprication_v3.php', true);
           xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
           xhr.send('pos=' + encodeURIComponent(pos));
