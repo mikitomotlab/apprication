@@ -11,7 +11,7 @@
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCpDX4w3G3zatKKXzl-pqeppNgl7TCfOQ0" async></script>
 
 
-  <script src="main7.js" defer></script>
+  <script src="main8.js" defer></script>
   <!-- <script src="hello_ajax.js" defer></script> -->
   <!-- <script src="try.js" defer></script> -->
   <script src="EXIF.js" ></script>
@@ -39,7 +39,13 @@
 
 <p>keywordを入力してください!</p>
 <form>
-  <input type="text" id="keyword" name="keyword" size="20" />
+  <input type="text" id="keyword" name="keyword" size="500" />
+  <!-- <input type="submit" id="btn" name="submit" value="送信" /> -->
+</form>
+
+<p>ホームページURLを入力してください!</p>
+<form>
+  <input type="text" id="homepage" name="homepage" size="500" />
   <!-- <input type="submit" id="btn" name="submit" value="送信" /> -->
 </form>
 
@@ -52,7 +58,7 @@
 <!-- <form>
   <input type="text" id="description" name="description" size="500" />
 </form> -->
-<textarea name="description" id="description" cols="40" rows="8">
+<textarea name="description" id="description" cols="60" rows="8">
 </textarea>
 
 <p>画像を選択してください!</p>
